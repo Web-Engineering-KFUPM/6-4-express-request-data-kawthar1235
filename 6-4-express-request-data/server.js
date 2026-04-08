@@ -105,14 +105,30 @@ LAB SETUP INSTRUCTIONS
  */
 
 //import express
-
+import express from "express";
 
 // create express app instance to create web server
-
+const app = express();
 
 
 // Query params: /echo?name=Ali&age=22
+app.get("/echo", (req, res) => {
+  const { name, age } = req.query;
 
+  if (!name || !age) {
+    return res.status(400).json({
+      ok: false,
+      error: "name & age required"
+    });
+  }
+
+  return res.json({
+    ok: true,
+    name,
+    age,
+    msg: `Hello ${name}, you are ${age}`
+  });
+});
 
 // Route params: /profile/First/Last
 
